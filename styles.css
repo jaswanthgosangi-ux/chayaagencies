@@ -1232,64 +1232,435 @@ button {
   border-radius: var(--radius-md);
 }
 
-/* Mobile Responsive */
+/* ==========================================================================
+   Comprehensive Mobile & Tablet Responsive Design System (320px - 1024px)
+   ========================================================================== */
+
+/* Prevent horizontal overflow globally */
+html, body {
+  overflow-x: hidden !important;
+  width: 100%;
+}
+
+/* 1. Large Tablets & Small Laptops (max-width: 1024px) */
 @media (max-width: 1024px) {
-  .hero-grid, .about-grid, .contact-grid, .faq-split-grid {
+  .container {
+    padding: 0 20px;
+  }
+
+  .hero-grid, 
+  .about-grid, 
+  .contact-grid, 
+  .faq-split-grid {
     grid-template-columns: 1fr;
     gap: 40px;
   }
-  .services-grid, .projects-grid {
+
+  .services-grid, 
+  .projects-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
   }
+
   .features-bar {
     grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
   }
+
   .stats-banner {
     grid-template-columns: 1fr;
+    gap: 30px;
   }
+
   .footer-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
   }
 }
 
+/* 2. Mobile Landscape & Tablets (max-width: 768px) */
 @media (max-width: 768px) {
-  .hero-title {
-    font-size: 2.6rem;
+  /* Section Spacing & Headings */
+  .hero {
+    padding: 120px 0 60px 0;
+    min-height: auto;
   }
+
+  .services-section, 
+  .features-counter-section, 
+  .about-section, 
+  .projects-section, 
+  .faq-section, 
+  .contact-section {
+    padding: 60px 0;
+  }
+
+  .section-header {
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-size: clamp(1.8rem, 6vw, 2.4rem);
+    letter-spacing: -0.5px;
+  }
+
+  .section-subtitle {
+    font-size: 0.95rem;
+  }
+
+  /* Header & Navigation */
+  .header {
+    padding: 12px 0;
+  }
+
+  .header-container {
+    position: relative;
+  }
+
+  .logo img {
+    height: 42px !important;
+  }
+
+  .header-actions {
+    gap: 12px;
+  }
+
+  .header-phone {
+    display: none;
+  }
+
+  .header-actions .btn-primary {
+    padding: 8px 14px;
+    font-size: 0.75rem;
+  }
+
+  .mobile-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-sm);
+    background: rgba(43, 167, 216, 0.15);
+    border: 1px solid rgba(43, 167, 216, 0.3);
+    color: #FFFFFF;
+    font-size: 1.4rem;
+    z-index: 1002;
+  }
+
+  /* Mobile Slide-Out Drawer Menu */
   .nav-menu {
     position: fixed;
     top: 0;
     right: -100%;
-    width: 80%;
+    width: 82%;
+    max-width: 340px;
     height: 100vh;
-    background: var(--dark-slate-800);
+    height: 100dvh;
+    background: rgba(13, 19, 31, 0.98);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-left: 1px solid rgba(43, 167, 216, 0.3);
+    box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
     flex-direction: column;
-    justify-content: center;
-    transition: right 0.4s ease;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 90px 24px 40px 24px;
+    gap: 8px;
+    transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1001;
+    overflow-y: auto;
   }
+
   .nav-menu.open {
     right: 0;
   }
-  .mobile-toggle {
-    display: block;
+
+  .nav-menu li {
+    width: 100%;
   }
-  .header-phone {
+
+  .nav-link {
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #E2E8F0;
+    border-radius: var(--radius-sm);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    transition: var(--transition);
+  }
+
+  .nav-link:hover, .nav-link.active {
+    background: rgba(43, 167, 216, 0.15);
+    color: #2BA7D8;
+    padding-left: 22px;
+  }
+
+  .nav-link.active::after, .nav-link:hover::after {
     display: none;
   }
-  .services-grid, .projects-grid {
-    grid-template-columns: 1fr;
+
+  /* Mobile Backdrop Overlay */
+  .nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(4, 7, 12, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
   }
+
+  .nav-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Mobile Sticky Bottom Action Bar */
+  .floating-dock {
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    height: 60px;
+    border-radius: 16px 16px 0 0;
+    border-right: 1px solid rgba(43, 167, 216, 0.3);
+    border-top: 1px solid rgba(43, 167, 216, 0.4);
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 6px 12px;
+    box-shadow: 0 -6px 25px rgba(0, 0, 0, 0.8);
+    background: rgba(7, 11, 18, 0.96);
+  }
+
+  .dock-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 6px 0;
+    height: 100%;
+  }
+
+  .dock-item i {
+    font-size: 1.2rem;
+  }
+
+  .dock-item span {
+    font-size: 0.7rem;
+    font-weight: 700;
+  }
+
+  /* Body Padding for Fixed Mobile Bottom Bar */
+  body {
+    padding-bottom: 60px;
+  }
+
+  /* Hero Adjustments */
+  .hero-title {
+    font-size: clamp(2rem, 7.5vw, 2.8rem);
+    line-height: 1.15;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 24px;
+  }
+
   .hero-features-row {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
   }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+  }
+
+  .hero-camera-container img {
+    max-height: 380px;
+  }
+
+  /* Grid Layouts Stack Vertically */
+  .services-grid, 
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
   .features-bar {
     grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 16px;
   }
+
+  .contact-grid-4col {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
+
+  .stat-number {
+    font-size: 2.2rem;
+  }
+
+  /* Filter Tabs Touch Swipe Bar */
+  .filter-tabs {
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 10px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .filter-btn {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+  }
+
+  /* Contact & Form */
+  .contact-mini-card {
+    padding: 16px;
+  }
+
+  .contact-form-card, 
+  .contact-info-card {
+    padding: 24px 18px;
+  }
+
+  .map-embed-container iframe {
+    height: 240px;
+  }
+
+  /* Footer */
   .footer-grid {
     grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  /* Modals */
+  .modal-box {
+    width: 94%;
+    padding: 28px 18px;
+    max-height: 88vh;
+    overflow-y: auto;
+  }
+
+  .modal-close-btn {
+    top: 14px;
+    right: 14px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* 3. Small Mobile Phones (max-width: 480px) */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 14px;
+  }
+
+  .hero-title {
+    font-size: 1.95rem;
+  }
+
+  .hero-features-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .hero-feature-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1.5rem;
+  }
+
+  .hero-feature-text {
+    font-size: 0.7rem;
+  }
+
+  .features-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-grid-4col {
+    grid-template-columns: 1fr;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .btn {
+    padding: 12px 20px;
+    font-size: 0.8rem;
+    min-height: 44px;
+  }
+
+  .form-input, .form-select, .form-textarea {
+    padding: 12px 14px;
+    font-size: 0.9rem;
+    min-height: 44px;
+  }
+
+  .faq-question {
+    padding: 16px 18px;
+    font-size: 0.95rem;
+  }
+
+  .faq-answer {
+    padding: 0 18px;
+    font-size: 0.88rem;
+  }
+
+  .faq-item.active .faq-answer {
+    padding: 0 18px 18px 18px;
+  }
+}
+
+/* 4. Ultra-Small Devices (320px - 360px) */
+@media (max-width: 360px) {
+  .header-actions .btn-primary {
+    display: none;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+  }
+
+  .section-title {
+    font-size: 1.6rem;
+  }
+
+  .hero-camera-container img {
+    max-height: 260px;
   }
 }

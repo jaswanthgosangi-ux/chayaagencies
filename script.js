@@ -18,28 +18,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 2. Mobile Navigation Toggle
+  // 2. Mobile Navigation Toggle & Backdrop Overlay
   const mobileToggle = document.querySelector('.mobile-toggle');
   const navMenu = document.querySelector('.nav-menu');
-  if (mobileToggle && navMenu) {
-    mobileToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('open');
+  const navOverlay = document.querySelector('.nav-overlay');
+
+  const closeMobileMenu = () => {
+    if (navMenu) navMenu.classList.remove('open');
+    if (navOverlay) navOverlay.classList.remove('active');
+    if (mobileToggle) {
       const icon = mobileToggle.querySelector('i');
       if (icon) {
-        if (navMenu.classList.contains('open')) {
-          icon.setAttribute('data-lucide', 'x');
-        } else {
-          icon.setAttribute('data-lucide', 'menu');
-        }
+        icon.setAttribute('data-lucide', 'menu');
         if (window.lucide) window.lucide.createIcons();
+      }
+    }
+  };
+
+  if (mobileToggle && navMenu) {
+    mobileToggle.addEventListener('click', () => {
+      const isOpen = navMenu.classList.contains('open');
+      if (isOpen) {
+        closeMobileMenu();
+      } else {
+        navMenu.classList.add('open');
+        if (navOverlay) navOverlay.classList.add('active');
+        const icon = mobileToggle.querySelector('i');
+        if (icon) {
+          icon.setAttribute('data-lucide', 'x');
+          if (window.lucide) window.lucide.createIcons();
+        }
       }
     });
 
+    if (navOverlay) {
+      navOverlay.addEventListener('click', closeMobileMenu);
+    }
+
     // Close menu when clicking nav links
     document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
-        navMenu.classList.remove('open');
-      });
+      link.addEventListener('click', closeMobileMenu);
     });
   }
 
