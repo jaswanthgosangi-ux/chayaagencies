@@ -11,7 +11,7 @@
 
 **CHAYA AGENCIES** is a trusted provider of electronic security hardware and surveillance solutions based in Visakhapatnam, Andhra Pradesh. Partnering with world-leading security brands like **Hikvision, Dahua, CP Plus, Bosch, and Honeywell**, CHAYA AGENCIES delivers customized security architectures tailored for residential villas, corporate offices, industrial warehouses, schools, retail showrooms, and command centers.
 
-- 🌐 **Live Website**: [http://localhost:8088](http://localhost:8088)
+- 🌐 **Live Website**: [http://localhost:8080](http://localhost:8080)
 - 📍 **Service Location**: Visakhapatnam, Andhra Pradesh, India (Exclusive Regional Hub)
 - 🕒 **Operating Hours**: Monday – Sunday: 9:00 AM – 7:00 PM (*Open 7 Days a Week*)
 

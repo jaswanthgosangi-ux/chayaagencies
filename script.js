@@ -18,78 +18,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 2. Mobile Navigation Toggle & Backdrop Overlay
+  // 2. Mobile Navigation Toggle
   const mobileToggle = document.querySelector('.mobile-toggle');
   const navMenu = document.querySelector('.nav-menu');
-  const navOverlay = document.querySelector('.nav-overlay');
-
-  const setMenuState = (isOpen) => {
-    if (!navMenu) return;
-
-    if (isOpen) {
-      navMenu.classList.add('open');
-      if (navOverlay) navOverlay.classList.add('active');
-      if (mobileToggle) {
-        mobileToggle.setAttribute('aria-expanded', 'true');
-        mobileToggle.innerHTML = '<i data-lucide="x"></i>';
-      }
-    } else {
-      navMenu.classList.remove('open');
-      if (navOverlay) navOverlay.classList.remove('active');
-      if (mobileToggle) {
-        mobileToggle.setAttribute('aria-expanded', 'false');
-        mobileToggle.innerHTML = '<i data-lucide="menu"></i>';
-      }
-    }
-
-    if (window.lucide) window.lucide.createIcons();
-  };
-
   if (mobileToggle && navMenu) {
-    const handleToggleClick = (e) => {
-      e.stopPropagation();
-      const isOpen = navMenu.classList.contains('open');
-      setMenuState(!isOpen);
-    };
-
-    mobileToggle.addEventListener('click', handleToggleClick);
-
-    if (navOverlay) {
-      navOverlay.addEventListener('click', (e) => {
-        e.stopPropagation();
-        setMenuState(false);
-      });
-    }
-
-    // Close menu and smoothly scroll to target section when tapping nav links
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', (e) => {
-        setMenuState(false);
-
-        const href = link.getAttribute('href');
-        if (href && href.startsWith('#')) {
-          const targetId = href.substring(1);
-          const targetElement = document.getElementById(targetId);
-          if (targetElement) {
-            e.preventDefault();
-            const headerOffset = 70;
-            const elementPosition = targetElement.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-            window.scrollTo({
-              top: offsetPosition,
-              behavior: 'smooth'
-            });
-          }
+    mobileToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+      const icon = mobileToggle.querySelector('i');
+      if (icon) {
+        if (navMenu.classList.contains('open')) {
+          icon.setAttribute('data-lucide', 'x');
+        } else {
+          icon.setAttribute('data-lucide', 'menu');
         }
-      });
+        if (window.lucide) window.lucide.createIcons();
+      }
     });
 
-    // Close menu on ESC key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && navMenu.classList.contains('open')) {
-        setMenuState(false);
-      }
+    // Close menu when clicking nav links
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+      });
     });
   }
 

@@ -1,5 +1,5 @@
 # Zero-Dependency PowerShell Local HTTP Web Server for CHAYA AGENCIES
-$port = 8088
+$port = 8080
 $prefix = "http://localhost:$port/"
 $root = "C:\Users\Jaswanth Gosangi\.gemini\antigravity\scratch\chaya-agencies"
 $imgDir = Join-Path $root "images"
@@ -33,7 +33,7 @@ if (Test-Path $brainDir) {
         Copy-Item -Path $uploadedHeroExact -Destination (Join-Path $imgDir "hero_camera_exact.png") -Force
     }
 
-    $uploadedMainLogo = Join-Path $brainDir ".user_uploaded\media__1785645780891.jpg"
+    $uploadedMainLogo = Join-Path $brainDir ".user_uploaded\media_1787505278299.jpg"
     if (Test-Path $uploadedMainLogo) {
         Copy-Item -Path $uploadedMainLogo -Destination (Join-Path $imgDir "chaya_main_logo.jpg") -Force
     }
