@@ -1,5 +1,5 @@
 # Zero-Dependency PowerShell Local HTTP Web Server for CHAYA AGENCIES
-$port = 8080
+$port = 8088
 $prefix = "http://localhost:$port/"
 $root = "C:\Users\Jaswanth Gosangi\.gemini\antigravity\scratch\chaya-agencies"
 $imgDir = Join-Path $root "images"
